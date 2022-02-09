@@ -61,13 +61,72 @@
             <div class="box">
                 <v-file-input accept="image/*" label="File input"></v-file-input>
             </div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div>
+            <div class="box">
+                <v-container>
+                    <v-row>
+                        <v-col cols="9">
+                            <v-otp-input :length="length" v-model="otp"></v-otp-input>
+                        </v-col>
+                        <v-col cols="2">
+                            <v-btn :disabled="!isActive" class="my-3">Read</v-btn>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </div>
+            <div class="box">
+                <v-container>
+                    <v-radio-group v-model="radios">
+                        <v-radio value="Google">
+                            <template v-slot:label>
+                                Google
+                            </template>
+                        </v-radio>
+                        <v-radio value="Duckduckgo">
+                            <template v-slot:label>
+                                Duckduckgo
+                            </template>
+                        </v-radio>
+                    </v-radio-group>
+                </v-container>
+            </div>
+            <div class="box">
+                <v-container>
+                    <v-sheet color="red " height="30" width="85">
+                        <v-switch :label=" Switch.toString()" v-model="Switch"></v-switch>
+                    </v-sheet>
+                </v-container>
+            </div>
+            <div class="box">
+                <v-container>
+                    <v-textarea outlined label="Outlined textarea" value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."></v-textarea>
+                </v-container>
+            </div>
+            <div class="box text-center">
+                <v-pagination v-model="page" :length="4" circle></v-pagination>
+            </div>
+            <div class="box">
+                <v-parallax height="200" src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"></v-parallax>
+            </div>
+            <div class="box">
+                <v-menu ref="menu" transition="scale-transition" offset-y min-width="auto">
+                    <template v-slot:activator="{on}">
+                        <v-text-field v-model="date" prepend-icon="mdi-calendar" readonly v-on="on"></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date"></v-date-picker>
+                </v-menu>
+            </div>
+
+            <div class="box">
+                <v-container>
+                    <v-progress-linear height="20" value="10"></v-progress-linear>
+                </v-container>
+            </div>
+            <div class="box">
+                <v-container>
+                    <v-rating v-model="rating"></v-rating>
+                </v-container>
+            </div>
+           
         </div>
 
     </v-flex>
@@ -95,8 +154,22 @@ export default {
             checkbox: true,
             select: ['Vuetify', 'Programming'],
             things: ['programming', 'designing', 'app', 'web'],
+            otp: '',
+            length: 7,
+            radios: 'Google',
+            Switch: true,
+            page: 1,
+            menu: false,
+            menu2: false,
+            date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            rating: 3,
         }
     },
+    computed: {
+        isActive() {
+            return this.otp.length === this.length
+        }
+    }
 }
 </script>
 
@@ -107,6 +180,7 @@ export default {
     background: red;
     margin-left: 10px;
     margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
 
 }
